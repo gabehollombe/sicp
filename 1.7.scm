@@ -1,37 +1,18 @@
-(define (average x y)
-  (/ (+ x y) 2))
+(define (good-enough? guess last-guess)
+  (< (abs (- guess last-guess)) (/ guess 1000.0)))
 
-(define  (improve guess x)
-  (average guess  (/ x guess)))
-
-
-(define (good-enough? guess x)
-  (< (abs (- (square guess) x)) 0.001))
-
-(define (sqrt-iter guess x)
-  (if (good-enough? guess x)
+(define (sqrt-iter guess last-guess x)
+  (if (good-enough? guess last-guess)
       guess
-      (sqrt-iter (improve guess x) x)))
+      (sqrt-iter (improve guess x) guess x)))
 
-(define (sqrt x)
-  (sqrt-iter 1.0 x))
-
-
-(define (delta-good-enough? guess last-guess x)
-  (< (abs (- guess last-guess)) (/ guess 100000.0)))
-
-(define (sqrt-iter2 guess last-guess x)
-  (if (delta-good-enough? guess last-guess x)
-      guess
-      (sqrt-iter2 (improve guess x) guess x)))
-
-(define (sqrt2 x)
-  (sqrt-iter2 1.0 x x))
+(define (my-sqrt x)
+  (sqrt-iter 1.0 x x))
 
 
-(sqrt  0.000001) ;=> 3.1260655525445276e-2
-(sqrt2 0.000001) ;=> 1.0000000000000117e-3
+(sqrt1 0.000001) ;; Not accurate for small numbers
+(sqrt2 0.000001) ;; Better for small numbers
 
-(sqrt  9879999999999999999999.0) ;=> 99398189118.31342
-(sqrt2 9879999999999999999999.0) ;=> 99398189118.31342
+;(sqrt1 10000000000000) ;; Hangs
+(sqrt2 10000000000000)  ;; Works for large numbers
 
