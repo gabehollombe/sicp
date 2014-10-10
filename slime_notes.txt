@@ -1,0 +1,4 @@
+Ctrl-C Ctrl-C - Run paragraph in tslime
+When prompted, press Enter to accept default socket, 
+then enter window.pane.  
+Example: 1.2  for first window, pane number 2.
